@@ -1,9 +1,9 @@
-import { Room } from "./Room";
-
 export default function Page() {
   return (
-    <Room>
-      <h1 className="font-xl">Figma Room</h1>
-    </Room>
+    <h1 className="text-2xl text-white">
+      <div className="h-[100vh] w-full flex justify-center items-center text-center">
+        Figma Room
+      </div>
+    </h1>
   );
 }
