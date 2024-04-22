@@ -1,5 +1,4 @@
 import { LiveCursorProps } from "@/types/type";
-import React from "react";
 import Cursor from "./Cursor";
 import { COLORS } from "@/constants";
 
