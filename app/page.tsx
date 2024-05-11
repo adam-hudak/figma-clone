@@ -158,7 +158,6 @@ export default function Page() {
     });
 
     canvas.on("selection:created", (options: any) => {
-      console.log("SELECTION CREATED");
       handleCanvasSelectionCreated({
         options,
         isEditingRef,
@@ -167,7 +166,6 @@ export default function Page() {
     });
 
     canvas.on("selection:updated", (options: any) => {
-      console.log("SELECTION UPDATED");
       handleCanvasSelectionCreated({
         options,
         isEditingRef,
