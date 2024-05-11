@@ -56,6 +56,7 @@ export type Attributes = {
   fontWeight: string;
   fill: string;
   stroke: string;
+  opacity: number;
 };
 
 export type ActiveElement = {

@@ -307,6 +307,7 @@ export const handleCanvasSelectionCreated = ({
       fontFamily: selectedElement?.fontFamily || "",
       // @ts-ignore
       fontWeight: selectedElement?.fontWeight || "",
+      opacity: selectedElement?.opacity || 1,
     });
   }
 };

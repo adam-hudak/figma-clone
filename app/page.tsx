@@ -34,7 +34,7 @@ export default function Page() {
   const isDrawing = useRef(false);
   const shapeRef = useRef<fabric.Object | null>(null);
   const selectedShapeRef = useRef<string | null>(null);
-  const activeObjectRef = useRef<fabric.object | null>(null);
+  const activeObjectRef = useRef<fabric.Object | null>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const isEditingRef = useRef(false);
 
@@ -67,6 +67,7 @@ export default function Page() {
     fontWeight: "",
     fill: "#aabbcc",
     stroke: "#aabbcc",
+    opacity: 1,
   });
 
   const deleteAllShape = useMutation(({ storage }) => {
@@ -74,7 +75,7 @@ export default function Page() {
 
     if (!canvasObjects || canvasObjects.size === 0) return true;
 
-    for (const [key, value] of canvasObjects.entries()) {
+    for (const [key, _] of canvasObjects.entries()) {
       canvasObjects.delete(key);
     }
 
@@ -157,6 +158,16 @@ export default function Page() {
     });
 
     canvas.on("selection:created", (options: any) => {
+      console.log("SELECTION CREATED");
+      handleCanvasSelectionCreated({
+        options,
+        isEditingRef,
+        setElementAttributes,
+      });
+    });
+
+    canvas.on("selection:updated", (options: any) => {
+      console.log("SELECTION UPDATED");
       handleCanvasSelectionCreated({
         options,
         isEditingRef,

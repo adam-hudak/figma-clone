@@ -4,6 +4,8 @@ import Dimensions from "./settings/Dimensions";
 import Export from "./settings/Export";
 import Text from "./settings/Text";
 import { modifyShape } from "@/lib/shapes";
+import { useRef } from "react";
+import Opacity from "./settings/Opacity";
 
 const RightSidebar = ({
   elementAttributes,
@@ -29,6 +31,8 @@ const RightSidebar = ({
       syncShapeInStorage,
     });
   };
+  const colorInputRef = useRef(null);
+  const strokeInputRef = useRef(null);
 
   return (
     <section className="flex flex-col border-t border-primary-grey-200 bg-primary-black text-primary-grey-300 min-w-[227px] sticky-right-0 h-full max-sm:hidden select-none">
@@ -43,9 +47,30 @@ const RightSidebar = ({
         handleInputChange={handleInputChange}
         isEditingRef={isEditingRef}
       />
-      <Text />
-      <Color />
-      <Color />
+      <Text
+        fontFamily={elementAttributes.fontFamily}
+        fontSize={elementAttributes.fontSize}
+        fontWeight={elementAttributes.fontWeight}
+        handleInputChange={handleInputChange}
+      />
+      <Opacity
+        opacity={elementAttributes.opacity}
+        handleInputChange={handleInputChange}
+      />
+      <Color
+        inputRef={colorInputRef}
+        attribute={elementAttributes.fill}
+        placeholder="color"
+        attributeType="fill"
+        handleInputChange={handleInputChange}
+      />
+      <Color
+        inputRef={strokeInputRef}
+        attribute={elementAttributes.stroke}
+        placeholder="stroke"
+        attributeType="stroke"
+        handleInputChange={handleInputChange}
+      />
       <Export />
     </section>
   );
