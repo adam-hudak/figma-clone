@@ -11,16 +11,19 @@ import {
   handleCanvasMouseDown,
   handleCanvasMouseUp,
   handleCanvasObjectModified,
+  handleCanvasObjectScaling,
+  handleCanvasSelectionCreated,
   handleCanvaseMouseMove,
   handleResize,
   initializeFabric,
   renderCanvas,
 } from "@/lib/canvas";
-import { ActiveElement } from "@/types/type";
+import { ActiveElement, Attributes } from "@/types/type";
 import { useMutation, useRedo, useStorage, useUndo } from "@/liveblocks.config";
 import { defaultNavElement } from "@/constants";
 import { handleDelete, handleKeyDown } from "@/lib/key-events";
 import { Comments } from "@/components/comments/Comments";
+import { handleImageUpload } from "@/lib/shapes";
 
 export default function Page() {
   const undo = useUndo();
@@ -32,6 +35,9 @@ export default function Page() {
   const shapeRef = useRef<fabric.Object | null>(null);
   const selectedShapeRef = useRef<string | null>(null);
   const activeObjectRef = useRef<fabric.object | null>(null);
+  const imageInputRef = useRef<HTMLInputElement>(null);
+  const isEditingRef = useRef(false);
+
   const canvasObjects = useStorage((root) => root.canvasObjects);
 
   const syncShapeInStorage = useMutation(({ storage }, object) => {
@@ -51,6 +57,16 @@ export default function Page() {
     name: "",
     value: "",
     icon: "",
+  });
+
+  const [elementAttributes, setElementAttributes] = useState<Attributes>({
+    width: "",
+    height: "",
+    fontFamily: "",
+    fontSize: "",
+    fontWeight: "",
+    fill: "#aabbcc",
+    stroke: "#aabbcc",
   });
 
   const deleteAllShape = useMutation(({ storage }) => {
@@ -83,6 +99,14 @@ export default function Page() {
       case "delete":
         handleDelete(fabricRef.current as any, deleteShapeFromStorage);
         setActiveElement(defaultNavElement);
+        break;
+      case "image":
+        imageInputRef.current?.click();
+        isDrawing.current = false;
+
+        if (fabricRef.current) {
+          fabricRef.current.isDrawingMode = false;
+        }
         break;
     }
 
@@ -132,6 +156,21 @@ export default function Page() {
       });
     });
 
+    canvas.on("selection:created", (options: any) => {
+      handleCanvasSelectionCreated({
+        options,
+        isEditingRef,
+        setElementAttributes,
+      });
+    });
+
+    canvas.on("object:scaling", (options: any) => {
+      handleCanvasObjectScaling({
+        options,
+        setElementAttributes,
+      });
+    });
+
     window.addEventListener("resize", () => {
       handleResize({ canvas: fabricRef.current });
     });
@@ -162,11 +201,29 @@ export default function Page() {
       <Navbar
         activeElement={activeElement}
         handleActiveElement={handleActiveElement}
+        imageInputRef={imageInputRef}
+        handleImageUpload={(e: any) => {
+          e.stopPropagation();
+
+          handleImageUpload({
+            file: e.target.files[0],
+            canvas: fabricRef as any,
+            shapeRef,
+            syncShapeInStorage,
+          });
+        }}
       />
       <section className="flex h-full flex-row">
         <LeftSidebar allShapes={Array.from(canvasObjects)} />
         <Live canvasRef={canvasRef} />
-        <RightSidebar />
+        <RightSidebar
+          elementAttributes={elementAttributes}
+          setElementAttributes={setElementAttributes}
+          fabricRef={fabricRef}
+          isEditingRef={isEditingRef}
+          activeObjectRef={activeObjectRef}
+          syncShapeInStorage={syncShapeInStorage}
+        />
       </section>
     </main>
   );
