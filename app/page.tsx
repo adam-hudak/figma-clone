@@ -22,7 +22,6 @@ import { ActiveElement, Attributes } from "@/types/type";
 import { useMutation, useRedo, useStorage, useUndo } from "@/liveblocks.config";
 import { defaultNavElement } from "@/constants";
 import { handleDelete, handleKeyDown } from "@/lib/key-events";
-import { Comments } from "@/components/comments/Comments";
 import { handleImageUpload } from "@/lib/shapes";
 
 export default function Page() {
@@ -206,7 +205,6 @@ export default function Page() {
 
   return (
     <main className="h-screen overflow-hidden">
-      <Comments />
       <Navbar
         activeElement={activeElement}
         handleActiveElement={handleActiveElement}

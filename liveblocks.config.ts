@@ -38,14 +38,6 @@ type RoomEvent = {
   // ...
 };
 
-// Optionally, when using Comments, ThreadMetadata represents metadata on
-// each thread. Can only contain booleans, strings, and numbers.
-export type ThreadMetadata = {
-  // resolved: boolean;
-  // quote: string;
-  // time: number;
-};
-
 // Room-level hooks, use inside `RoomProvider`
 export const {
   suspense: {
@@ -78,9 +70,6 @@ export const {
     useThreads,
     useCreateThread,
     useEditThreadMetadata,
-    useCreateComment,
-    useEditComment,
-    useDeleteComment,
     useAddReaction,
     useRemoveReaction,
     useThreadSubscription,
