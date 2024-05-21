@@ -12,6 +12,8 @@ const client = createClient({
 export type Presence = {
   cursor: { x: number; y: number } | null;
   message: string | null;
+  cursorColor: string;
+  editingText: string | null;
   // ...
 };
 
