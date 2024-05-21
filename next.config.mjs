@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config) => {
-    config.external.push({
+    config.externals.push({
       "utf-8-validate": "comminjs utf-8-validate",
       bufferutil: "comminjs bufferutil",
       canvas: "comminjs canvas",
