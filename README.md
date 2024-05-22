@@ -1,5 +1,5 @@
 <div align="center">
-  <h3 align="center">Real Time Figma Clone</h3>
+  <h1 align="center">Real Time Figma Clone</h1>
   <br />
   <div>
     <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6" alt="typescript" />
