@@ -12,10 +12,10 @@
 ## 📋 <a name="table">Table of Contents</a>
 
 1. 🚨 [Demo](#demo)
-1. 🤖 [Introduction](#introduction)
-1. ⚙️ [Tech Stack](#tech-stack)
-1. 🔋 [Features](#features)
-1. 🤸 [Quick Start](#quick-start)
+2. 🤖 [Introduction](#introduction)
+3. ⚙️ [Tech Stack](#tech-stack)
+4. 🔋 [Features](#features)
+5. 🤸 [Quick Start](#quick-start)
 
 ## <a name="demo">🚨 Demo</a>
 
